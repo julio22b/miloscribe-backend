@@ -1,6 +1,7 @@
 import express, { type Request, type Response, type Application, type NextFunction } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import authRouter from './routes/auth.routes.js';
 
 dotenv.config();
 
@@ -18,11 +19,15 @@ app.use(
     }),
 );
 
-app.get('/', (req: Request, res: Response): void => {
-    res.send('Hello World! Your TypeScript Express server is running.');
-});
+app.use('/auth', authRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+        res.status(500).json({ error: 'JWT_SECRET is not defined in environment variables' });
+        return;
+    }
+
     console.error(err.stack);
     res.status(500).send('Error. Check logs.');
 });
