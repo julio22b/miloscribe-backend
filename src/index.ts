@@ -11,7 +11,13 @@ import { authenticationMiddleware } from './middleware/auth.middleware.js';
 const app: Application = express();
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
-const requiredEnv = ['JWT_SECRET', 'DATABASE_URL'];
+const requiredEnv = [
+    'JWT_SECRET',
+    'DATABASE_URL',
+    'CLOUDINARY_CLOUD_NAME',
+    'CLOUDINARY_API_KEY',
+    'CLOUDINARY_API_SECRET',
+];
 for (const envVar of requiredEnv) {
     if (!process.env[envVar]) {
         console.error(`FATAL ERROR: ${envVar} is not defined in environment variables`);
