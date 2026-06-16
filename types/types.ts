@@ -1,8 +1,11 @@
-import type { Prisma } from '../src/generated/prisma/index.js';
 import type { Request } from 'express';
 
-interface AuthenticatedRequest extends Request<object, any, Prisma.PatientCreateInput> {
+interface AuthenticatedRequest<T = any> extends Request<object, any, T> {
     doctor?: { id: number };
 }
 
-export type { AuthenticatedRequest };
+interface CreateConsultationBody {
+    patientId: string;
+}
+
+export type { AuthenticatedRequest, CreateConsultationBody };

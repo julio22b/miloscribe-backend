@@ -1,4 +1,5 @@
 import { type Response } from 'express';
+import type { Prisma } from '../generated/prisma/index.js';
 import { findDoctorById } from '../models/doctor.model.js';
 import { createPatient as createPatientInDB, findPatients } from '../models/patient.model.js';
 import type { AuthenticatedRequest } from '../../types/types.js';
@@ -14,7 +15,7 @@ const getPatients = async (req: AuthenticatedRequest, res: Response) => {
     }
 };
 
-const createPatient = async (req: AuthenticatedRequest, res: Response) => {
+const createPatient = async (req: AuthenticatedRequest<Prisma.PatientCreateInput>, res: Response) => {
     try {
         const { name, date_of_birth, gender } = req.body;
 

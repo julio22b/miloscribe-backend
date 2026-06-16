@@ -6,6 +6,7 @@ import express, { type Request, type Response, type Application, type NextFuncti
 import cors from 'cors';
 import authRouter from './routes/auth.routes.js';
 import patientsRouter from './routes/patients.routes.js';
+import consultationsRouter from './routes/consultations.routes.js';
 import { authenticationMiddleware } from './middleware/auth.middleware.js';
 
 const app: Application = express();
@@ -39,8 +40,9 @@ app.use(
 
 app.use('/auth', authRouter);
 app.use('/patients', authenticationMiddleware, patientsRouter);
+app.use('/consultations', authenticationMiddleware, consultationsRouter);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response) => {
     console.error('Unhandled error:', err);
     res.status(500).send('Error. Check logs.');
 });
