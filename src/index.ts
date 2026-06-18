@@ -2,7 +2,7 @@ process.on('uncaughtException', (err) => {
     console.error('Uncaught exception:', err);
 });
 import 'dotenv/config';
-import express, { type Request, type Response, type Application, type NextFunction } from 'express';
+import express, { type Request, type Response, type Application } from 'express';
 import cors from 'cors';
 import authRouter from './routes/auth.routes.js';
 import patientsRouter from './routes/patients.routes.js';

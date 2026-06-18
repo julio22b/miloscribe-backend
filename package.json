@@ -5,8 +5,10 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon --exec 'node --import tsx --no-warnings' src/index.ts",
-        "lint": "eslint ."
+        "dev": "dotenv -e .env.local -- nodemon --exec 'node --import tsx --no-warnings' src/index.ts",
+        "lint": "eslint .",
+        "local:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
+        "local:studio": "dotenv -e .env.local -- npx prisma studio"
     },
     "engines": {
         "node": ">=20.0.0"
@@ -25,6 +27,7 @@
         "express": "^5.2.1",
         "jsonwebtoken": "^9.0.3",
         "multer": "^2.2.0",
+        "openai": "^6.42.0",
         "prisma": "^7.8.0"
     },
     "devDependencies": {
@@ -34,6 +37,7 @@
         "@types/jsonwebtoken": "^9.0.10",
         "@types/multer": "^2.1.0",
         "@types/node": "^25.9.3",
+        "dotenv-cli": "^11.0.0",
         "eslint": "^9.16.0",
         "nodemon": "^3.1.14",
         "tsx": "^4.22.4",
