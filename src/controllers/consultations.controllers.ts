@@ -1,6 +1,6 @@
 import { type Response } from 'express';
 import { createConsultation as createConsultationInDB } from '../models/consultation.model.js';
-import type { AuthenticatedRequest, CreateConsultationBody, ProcessConsultationBody } from '../../types/types.js';
+import type { AuthenticatedRequest, CreateConsultationBody, ProcessConsultationBody } from '../types/types.js';
 import { uploadFromBuffer } from '../config/cloudinary.js';
 
 const createConsultation = async (req: AuthenticatedRequest<CreateConsultationBody>, res: Response) => {

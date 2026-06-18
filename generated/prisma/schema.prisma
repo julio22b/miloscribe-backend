@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Doctor {
+  id         Int       @id @default(autoincrement())
+  name       String
+  username   String    @unique
+  password   String
+  specialty  String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  patients   Patient[]
+}
+
+model Patient {
+  id            Int            @id @default(autoincrement())
+  name          String
+  date_of_birth DateTime
+  gender        Gender
+  doctor_id     Int
+  doctor        Doctor         @relation(fields: [doctor_id], references: [id])
+  consultations Consultation[]
+  created_at    DateTime       @default(now())
+  last_visit    DateTime?
+}
+
+model Consultation {
+  id              Int        @id @default(autoincrement())
+  patient_id      Int
+  patient         Patient    @relation(fields: [patient_id], references: [id])
+  audio_url       String?
+  transcript_text String?
+  status          Status
+  created_at      DateTime   @default(now())
+  documents       Document[]
+}
+
+model Document {
+  id              Int          @id @default(autoincrement())
+  consultation_id Int
+  consultation    Consultation @relation(fields: [consultation_id], references: [id])
+  type            DocumentType
+  content         String
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Status {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum DocumentType {
+  MEDICAL_HISTORY
+  PROGRESS_NOTE
+  DISCHARGE_SUMMARY
+  FOLLOW_UP_PLAN
+}

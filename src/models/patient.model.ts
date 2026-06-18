@@ -1,5 +1,5 @@
-import { prisma } from '../../lib/prisma.js';
-import type { Prisma, Patient } from '../generated/prisma/index.js';
+import { prisma } from '../lib/prisma.js';
+import type { Prisma, Patient } from '../../generated/prisma/index.js';
 
 export const createPatient = async (data: Prisma.PatientCreateInput): Promise<Patient> => {
     const createdPatient = await prisma.patient.create({

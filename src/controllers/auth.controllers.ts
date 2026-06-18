@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { type Request, type Response } from 'express';
 import { createDoctor, findDoctorByUsername } from '../models/doctor.model.js';
-import type { Prisma } from '../generated/prisma/index.js';
+import type { Prisma } from '../../generated/prisma/index.js';
 
 const registerDoctor = async (req: Request<object, object, Prisma.DoctorCreateInput>, res: Response): Promise<void> => {
     try {

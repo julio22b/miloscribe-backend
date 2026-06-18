@@ -1,5 +1,5 @@
-import { prisma } from '../../lib/prisma.js';
-import type { Prisma, Doctor } from '../generated/prisma/index.js';
+import { prisma } from '../lib/prisma.js';
+import type { Prisma, Doctor } from '../../generated/prisma/index.js';
 
 export const findDoctorByUsername = async (username: string): Promise<Doctor | null> => {
     const doctor = await prisma.doctor.findUnique({

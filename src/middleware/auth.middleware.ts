@@ -1,6 +1,6 @@
 import { type Response, type NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import type { AuthenticatedRequest } from '../../types/types.js';
+import type { AuthenticatedRequest } from '../types/types.js';
 
 export const authenticationMiddleware = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
