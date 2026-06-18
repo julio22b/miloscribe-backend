@@ -4,7 +4,7 @@ const storage = multer.memoryStorage();
 
 export const upload = multer({
     storage: storage,
-    fileFilter: (req, file, cb) => {
+    fileFilter: (_, file, cb) => {
         if (file.mimetype.startsWith('audio/')) {
             cb(null, true);
         } else {

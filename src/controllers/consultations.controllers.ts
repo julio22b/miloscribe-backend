@@ -35,6 +35,7 @@ const createConsultation = async (req: AuthenticatedRequest<CreateConsultationBo
 const processConsultation = async (req: AuthenticatedRequest<ProcessConsultationBody>, res: Response) => {
     try {
         const { consultationId } = req.body;
+        console.log(consultationId);
     } catch (error) {
         console.error('Process consultation error:', error);
         res.status(500).json({ error: 'Something went wrong' });

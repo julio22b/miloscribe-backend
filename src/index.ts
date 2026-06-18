@@ -42,7 +42,7 @@ app.use('/auth', authRouter);
 app.use('/patients', authenticationMiddleware, patientsRouter);
 app.use('/consultations', authenticationMiddleware, consultationsRouter);
 
-app.use((err: Error, req: Request, res: Response) => {
+app.use((err: Error, _: Request, res: Response) => {
     console.error('Unhandled error:', err);
     res.status(500).send('Error. Check logs.');
 });
