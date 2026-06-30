@@ -1,7 +1,7 @@
 import type { Request } from 'express';
 import { DocumentType } from 'generated/prisma/index.js';
 
-interface AuthenticatedRequest<T = object> extends Request<object, object, T> {
+interface AuthenticatedRequest<T = object> extends Request<{ id?: string }, object, T> {
     doctor?: { id: number };
 }
 
@@ -10,8 +10,12 @@ interface CreateConsultationBody {
 }
 
 interface ProcessConsultationBody {
-    consultationID: string;
+    consultationId: string;
     documentType: DocumentType;
 }
 
-export type { AuthenticatedRequest, CreateConsultationBody, ProcessConsultationBody };
+interface UpdateDocumentBody {
+    content: string;
+}
+
+export type { AuthenticatedRequest, CreateConsultationBody, ProcessConsultationBody, UpdateDocumentBody };

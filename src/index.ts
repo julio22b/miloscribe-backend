@@ -7,6 +7,7 @@ import cors from 'cors';
 import authRouter from './routes/auth.routes.js';
 import patientsRouter from './routes/patients.routes.js';
 import consultationsRouter from './routes/consultations.routes.js';
+import documentsRouter from './routes/documents.routes.js';
 import { authenticationMiddleware } from './middleware/auth.middleware.js';
 
 const app: Application = express();
@@ -41,6 +42,7 @@ app.use(
 app.use('/auth', authRouter);
 app.use('/patients', authenticationMiddleware, patientsRouter);
 app.use('/consultations', authenticationMiddleware, consultationsRouter);
+app.use('/documents', authenticationMiddleware, documentsRouter);
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     console.error('Unhandled error:', err);

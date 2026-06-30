@@ -6,9 +6,10 @@ import {
 } from '../models/consultation.model.js';
 import type { AuthenticatedRequest, CreateConsultationBody, ProcessConsultationBody } from '../types/types.js';
 import { uploadFromBuffer } from '../config/cloudinary.js';
-import { createDocument } from 'src/models/documents.model.js';
-import openai from 'src/config/openai.js';
+import openai from '../config/openai.js';
 import { toFile } from 'openai';
+import { createDocument } from '../models/documents.model.js';
+import { isOwnedByDoctor } from '../lib/authorization.js';
 
 const createConsultation = async (req: AuthenticatedRequest<CreateConsultationBody>, res: Response) => {
     try {
@@ -43,20 +44,19 @@ const processConsultation = async (req: AuthenticatedRequest<ProcessConsultation
     console.log('processConsultation hit', req.body);
 
     try {
-        const { consultationID, documentType } = req.body;
+        const { consultationId, documentType } = req.body;
 
-        const consultation = await searchConsultationById(Number(consultationID));
+        const consultation = await searchConsultationById(Number(consultationId));
         if (!consultation) {
             res.status(400).json({ error: 'Consultation does not exist' });
             return;
         }
 
-        if (consultation.patient.doctor_id !== req.doctor!.id) {
-            res.status(403).json({ error: 'Forbidden' });
+        if (!isOwnedByDoctor(res, consultation.patient.doctor_id, req.doctor!.id)) {
             return;
         }
 
-        await changeConsultationStatus('PROCESSING', Number(consultationID));
+        await changeConsultationStatus('PROCESSING', Number(consultationId));
 
         if (!consultation.audio_url) {
             res.status(400).json({ error: 'Consultation has no audio file' });
@@ -125,7 +125,7 @@ PLAN:
         };
 
         if (!gptDocument.choices[0].message.content) {
-            const failedDocument = await changeConsultationStatus('FAILED', Number(consultationID));
+            const failedDocument = await changeConsultationStatus('FAILED', Number(consultationId));
             res.status(400).json({ error: 'Document creation failed', document: failedDocument });
             return;
         }
@@ -134,13 +134,13 @@ PLAN:
 
         const document = await createDocument({
             consultation: {
-                connect: { id: Number(consultationID) },
+                connect: { id: Number(consultationId) },
             },
             type: req.body.documentType,
             content: gptDocument.choices[0].message.content,
         });
 
-        const completedConsultation = await changeConsultationStatus('COMPLETED', Number(consultationID));
+        const completedConsultation = await changeConsultationStatus('COMPLETED', Number(consultationId));
 
         res.status(200).json({
             message: 'Consultation processed successfully',
