@@ -24,6 +24,11 @@ export const findPatients = async (doctorId: number): Promise<Patient[]> => {
         where: {
             doctor_id: doctorId,
         },
+        include: {
+            consultations: {
+                include: { documents: true },
+            },
+        },
     });
 
     return patients;
