@@ -137,7 +137,8 @@ exports.Prisma.PatientScalarFieldEnum = {
   gender: 'gender',
   doctor_id: 'doctor_id',
   created_at: 'created_at',
-  last_visit: 'last_visit'
+  last_visit: 'last_visit',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.ConsultationScalarFieldEnum = {

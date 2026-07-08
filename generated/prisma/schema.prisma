@@ -28,6 +28,7 @@ model Patient {
   consultations Consultation[]
   created_at    DateTime       @default(now())
   last_visit    DateTime?
+  deleted_at    DateTime?
 }
 
 model Consultation {

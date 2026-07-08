@@ -2441,6 +2441,7 @@ export namespace Prisma {
     doctor_id: number | null
     created_at: Date | null
     last_visit: Date | null
+    deleted_at: Date | null
   }
 
   export type PatientMaxAggregateOutputType = {
@@ -2451,6 +2452,7 @@ export namespace Prisma {
     doctor_id: number | null
     created_at: Date | null
     last_visit: Date | null
+    deleted_at: Date | null
   }
 
   export type PatientCountAggregateOutputType = {
@@ -2461,6 +2463,7 @@ export namespace Prisma {
     doctor_id: number
     created_at: number
     last_visit: number
+    deleted_at: number
     _all: number
   }
 
@@ -2483,6 +2486,7 @@ export namespace Prisma {
     doctor_id?: true
     created_at?: true
     last_visit?: true
+    deleted_at?: true
   }
 
   export type PatientMaxAggregateInputType = {
@@ -2493,6 +2497,7 @@ export namespace Prisma {
     doctor_id?: true
     created_at?: true
     last_visit?: true
+    deleted_at?: true
   }
 
   export type PatientCountAggregateInputType = {
@@ -2503,6 +2508,7 @@ export namespace Prisma {
     doctor_id?: true
     created_at?: true
     last_visit?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -2600,6 +2606,7 @@ export namespace Prisma {
     doctor_id: number
     created_at: Date
     last_visit: Date | null
+    deleted_at: Date | null
     _count: PatientCountAggregateOutputType | null
     _avg: PatientAvgAggregateOutputType | null
     _sum: PatientSumAggregateOutputType | null
@@ -2629,6 +2636,7 @@ export namespace Prisma {
     doctor_id?: boolean
     created_at?: boolean
     last_visit?: boolean
+    deleted_at?: boolean
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
     consultations?: boolean | Patient$consultationsArgs<ExtArgs>
     _count?: boolean | PatientCountOutputTypeDefaultArgs<ExtArgs>
@@ -2642,6 +2650,7 @@ export namespace Prisma {
     doctor_id?: boolean
     created_at?: boolean
     last_visit?: boolean
+    deleted_at?: boolean
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["patient"]>
 
@@ -2653,6 +2662,7 @@ export namespace Prisma {
     doctor_id?: boolean
     created_at?: boolean
     last_visit?: boolean
+    deleted_at?: boolean
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["patient"]>
 
@@ -2664,9 +2674,10 @@ export namespace Prisma {
     doctor_id?: boolean
     created_at?: boolean
     last_visit?: boolean
+    deleted_at?: boolean
   }
 
-  export type PatientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "date_of_birth" | "gender" | "doctor_id" | "created_at" | "last_visit", ExtArgs["result"]["patient"]>
+  export type PatientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "date_of_birth" | "gender" | "doctor_id" | "created_at" | "last_visit" | "deleted_at", ExtArgs["result"]["patient"]>
   export type PatientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     doctor?: boolean | DoctorDefaultArgs<ExtArgs>
     consultations?: boolean | Patient$consultationsArgs<ExtArgs>
@@ -2693,6 +2704,7 @@ export namespace Prisma {
       doctor_id: number
       created_at: Date
       last_visit: Date | null
+      deleted_at: Date | null
     }, ExtArgs["result"]["patient"]>
     composites: {}
   }
@@ -3125,6 +3137,7 @@ export namespace Prisma {
     readonly doctor_id: FieldRef<"Patient", 'Int'>
     readonly created_at: FieldRef<"Patient", 'DateTime'>
     readonly last_visit: FieldRef<"Patient", 'DateTime'>
+    readonly deleted_at: FieldRef<"Patient", 'DateTime'>
   }
     
 
@@ -5860,7 +5873,8 @@ export namespace Prisma {
     gender: 'gender',
     doctor_id: 'doctor_id',
     created_at: 'created_at',
-    last_visit: 'last_visit'
+    last_visit: 'last_visit',
+    deleted_at: 'deleted_at'
   };
 
   export type PatientScalarFieldEnum = (typeof PatientScalarFieldEnum)[keyof typeof PatientScalarFieldEnum]
@@ -6098,6 +6112,7 @@ export namespace Prisma {
     doctor_id?: IntFilter<"Patient"> | number
     created_at?: DateTimeFilter<"Patient"> | Date | string
     last_visit?: DateTimeNullableFilter<"Patient"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"Patient"> | Date | string | null
     doctor?: XOR<DoctorScalarRelationFilter, DoctorWhereInput>
     consultations?: ConsultationListRelationFilter
   }
@@ -6110,6 +6125,7 @@ export namespace Prisma {
     doctor_id?: SortOrder
     created_at?: SortOrder
     last_visit?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     doctor?: DoctorOrderByWithRelationInput
     consultations?: ConsultationOrderByRelationAggregateInput
   }
@@ -6125,6 +6141,7 @@ export namespace Prisma {
     doctor_id?: IntFilter<"Patient"> | number
     created_at?: DateTimeFilter<"Patient"> | Date | string
     last_visit?: DateTimeNullableFilter<"Patient"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"Patient"> | Date | string | null
     doctor?: XOR<DoctorScalarRelationFilter, DoctorWhereInput>
     consultations?: ConsultationListRelationFilter
   }, "id">
@@ -6137,6 +6154,7 @@ export namespace Prisma {
     doctor_id?: SortOrder
     created_at?: SortOrder
     last_visit?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: PatientCountOrderByAggregateInput
     _avg?: PatientAvgOrderByAggregateInput
     _max?: PatientMaxOrderByAggregateInput
@@ -6155,6 +6173,7 @@ export namespace Prisma {
     doctor_id?: IntWithAggregatesFilter<"Patient"> | number
     created_at?: DateTimeWithAggregatesFilter<"Patient"> | Date | string
     last_visit?: DateTimeNullableWithAggregatesFilter<"Patient"> | Date | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"Patient"> | Date | string | null
   }
 
   export type ConsultationWhereInput = {
@@ -6361,6 +6380,7 @@ export namespace Prisma {
     gender: $Enums.Gender
     created_at?: Date | string
     last_visit?: Date | string | null
+    deleted_at?: Date | string | null
     doctor: DoctorCreateNestedOneWithoutPatientsInput
     consultations?: ConsultationCreateNestedManyWithoutPatientInput
   }
@@ -6373,6 +6393,7 @@ export namespace Prisma {
     doctor_id: number
     created_at?: Date | string
     last_visit?: Date | string | null
+    deleted_at?: Date | string | null
     consultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
   }
 
@@ -6382,6 +6403,7 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     doctor?: DoctorUpdateOneRequiredWithoutPatientsNestedInput
     consultations?: ConsultationUpdateManyWithoutPatientNestedInput
   }
@@ -6394,6 +6416,7 @@ export namespace Prisma {
     doctor_id?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     consultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
   }
 
@@ -6405,6 +6428,7 @@ export namespace Prisma {
     doctor_id: number
     created_at?: Date | string
     last_visit?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type PatientUpdateManyMutationInput = {
@@ -6413,6 +6437,7 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PatientUncheckedUpdateManyInput = {
@@ -6423,6 +6448,7 @@ export namespace Prisma {
     doctor_id?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ConsultationCreateInput = {
@@ -6726,6 +6752,7 @@ export namespace Prisma {
     doctor_id?: SortOrder
     created_at?: SortOrder
     last_visit?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type PatientAvgOrderByAggregateInput = {
@@ -6741,6 +6768,7 @@ export namespace Prisma {
     doctor_id?: SortOrder
     created_at?: SortOrder
     last_visit?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type PatientMinOrderByAggregateInput = {
@@ -6751,6 +6779,7 @@ export namespace Prisma {
     doctor_id?: SortOrder
     created_at?: SortOrder
     last_visit?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type PatientSumOrderByAggregateInput = {
@@ -7365,6 +7394,7 @@ export namespace Prisma {
     gender: $Enums.Gender
     created_at?: Date | string
     last_visit?: Date | string | null
+    deleted_at?: Date | string | null
     consultations?: ConsultationCreateNestedManyWithoutPatientInput
   }
 
@@ -7375,6 +7405,7 @@ export namespace Prisma {
     gender: $Enums.Gender
     created_at?: Date | string
     last_visit?: Date | string | null
+    deleted_at?: Date | string | null
     consultations?: ConsultationUncheckedCreateNestedManyWithoutPatientInput
   }
 
@@ -7415,6 +7446,7 @@ export namespace Prisma {
     doctor_id?: IntFilter<"Patient"> | number
     created_at?: DateTimeFilter<"Patient"> | Date | string
     last_visit?: DateTimeNullableFilter<"Patient"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"Patient"> | Date | string | null
   }
 
   export type DoctorCreateWithoutPatientsInput = {
@@ -7532,6 +7564,7 @@ export namespace Prisma {
     gender: $Enums.Gender
     created_at?: Date | string
     last_visit?: Date | string | null
+    deleted_at?: Date | string | null
     doctor: DoctorCreateNestedOneWithoutPatientsInput
   }
 
@@ -7543,6 +7576,7 @@ export namespace Prisma {
     doctor_id: number
     created_at?: Date | string
     last_visit?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type PatientCreateOrConnectWithoutConsultationsInput = {
@@ -7592,6 +7626,7 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     doctor?: DoctorUpdateOneRequiredWithoutPatientsNestedInput
   }
 
@@ -7603,6 +7638,7 @@ export namespace Prisma {
     doctor_id?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type DocumentUpsertWithWhereUniqueWithoutConsultationInput = {
@@ -7690,6 +7726,7 @@ export namespace Prisma {
     gender: $Enums.Gender
     created_at?: Date | string
     last_visit?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type PatientUpdateWithoutDoctorInput = {
@@ -7698,6 +7735,7 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     consultations?: ConsultationUpdateManyWithoutPatientNestedInput
   }
 
@@ -7708,6 +7746,7 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     consultations?: ConsultationUncheckedUpdateManyWithoutPatientNestedInput
   }
 
@@ -7718,6 +7757,7 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     last_visit?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ConsultationCreateManyPatientInput = {
