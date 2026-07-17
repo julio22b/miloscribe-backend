@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { type Request, type Response } from 'express';
-import { createDoctor, findDoctorByUsername } from '../models/doctor.model.js';
+import { createDoctor, deleteDoctorAndData, findDoctorById, findDoctorByUsername } from '../models/doctor.model.js';
 import type { Prisma } from '../../generated/prisma/index.js';
+import type { AuthenticatedRequest } from '../types/types.js';
 
 const registerDoctor = async (req: Request<object, object, Prisma.DoctorCreateInput>, res: Response): Promise<void> => {
     try {
@@ -79,4 +80,20 @@ const loginDoctor = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export default { registerDoctor, loginDoctor };
+const deleteAccount = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        const doctor = await findDoctorById(req.doctor!.id);
+        if (!doctor) {
+            res.status(404).json({ error: 'Doctor not found' });
+            return;
+        }
+
+        await deleteDoctorAndData(doctor.id);
+        res.status(200).json({ message: 'Account deleted successfully' });
+    } catch (error) {
+        console.error('Delete account error:', error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+};
+
+export default { registerDoctor, loginDoctor, deleteAccount };

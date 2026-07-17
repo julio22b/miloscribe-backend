@@ -1,8 +1,9 @@
 import { type Response, type NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import type { AuthenticatedRequest } from '../types/types.js';
+import { findDoctorById } from '../models/doctor.model.js';
 
-export const authenticationMiddleware = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+export const authenticationMiddleware = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
 
@@ -16,6 +17,12 @@ export const authenticationMiddleware = (req: AuthenticatedRequest, res: Respons
 
         if (typeof decoded === 'string' || !('id' in decoded) || typeof decoded.id !== 'number') {
             res.status(401).json({ error: 'Unauthorized: Invalid token payload' });
+            return;
+        }
+
+        const doctor = await findDoctorById(decoded.id);
+        if (!doctor) {
+            res.status(401).json({ error: 'Unauthorized' });
             return;
         }
 
