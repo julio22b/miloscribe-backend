@@ -36,6 +36,7 @@ model Consultation {
   patient_id Int
   patient Patient @relation(fields: [patient_id], references: [id])
   audio_url String?
+  audio_mime_type String?
   transcript_text String?
   status Status
   created_at DateTime @default(now())

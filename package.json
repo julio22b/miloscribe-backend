@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "postinstall": "prisma generate",
         "dev": "dotenv -e .env.local -- nodemon --exec 'node --import tsx --no-warnings' src/index.ts",
         "lint": "eslint .",
         "local:migrate": "dotenv -e .env.local -- npx prisma migrate dev",

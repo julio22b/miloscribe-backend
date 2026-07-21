@@ -30,6 +30,7 @@ const createConsultation = async (req: AuthenticatedRequest<CreateConsultationBo
                 },
                 status: 'PENDING',
                 audio_url: audioUpload.secure_url,
+                audio_mime_type: req.file.mimetype,
             },
             Number(patientId),
         );
@@ -65,7 +66,7 @@ const processConsultation = async (req: AuthenticatedRequest<ProcessConsultation
         await changeConsultationStatus('PROCESSING', Number(consultationId));
 
         const audioResponse = await fetch(consultation.audio_url);
-        const mimeType = 'audio/webm';
+        const mimeType = consultation.audio_mime_type ?? 'audio/webm';
         const arrayBuffer = await audioResponse.arrayBuffer();
         const base64Audio = Buffer.from(arrayBuffer).toString('base64');
 
@@ -157,7 +158,10 @@ const uploadConsultationAudio = async (req: AuthenticatedRequest, res: Response)
             // status ideally belongs at the document level since one consultation
             // can have multiple documents in different states. Kept at consultation
             // level for v1 simplicity.
-            updatedConsultation = await updateConsultation({ audio_url: audioUpload.secure_url }, id);
+            updatedConsultation = await updateConsultation(
+                { audio_url: audioUpload.secure_url, audio_mime_type: req.file.mimetype },
+                id,
+            );
         } catch (dbError) {
             deleteFromCloudinary(audioUpload.public_id).catch((err) =>
                 console.error('Failed to delete orphaned Cloudinary asset:', err),

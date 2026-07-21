@@ -99,5 +99,4 @@ Prisma client is generated on install; migrations run against your `DATABASE_URL
 
 ## Known limitations & future work
 
-- **Audio format assumption.** The Gemini step assumes `audio/webm`.
 - **Consultation-level status.** Status lives on the consultation, but a consultation can hold multiple documents in different states. It ideally belongs at the document level; kept at the consultation level for v1 simplicity.
