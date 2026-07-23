@@ -2,7 +2,7 @@
 
 **API and AI processing for MiloScribe, a clinical AI assistant that turns recorded consultations into structured medical documents.**
 
-This is the backend. It handles authentication, patient and consultation data, audio storage, and the AI pipeline that transcribes a consultation and generates a structured clinical document. For the full project story, the UI, and the audio-recording work, see the [frontend repository](https://github.com/julio22b/health-app-frontend)
+This is the backend. It handles authentication, patient and consultation data, audio storage, and the AI pipeline that transcribes a consultation and generates a structured clinical document. For the full project story, the UI, and the audio-recording work, see the [frontend repository](https://github.com/julio22b/miloscribe-frontend)
 
 ---
 
